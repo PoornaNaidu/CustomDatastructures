@@ -11,6 +11,10 @@ class CustomDictionary(dict):
         return dict.__getitem__(self, key)
 
 
+    # def __setitem__(self, __key, __value):
+    #     self.setdefault(__key,__value)
+
+
 class Counter(CustomDictionary):
 
     def __init__(self, type=int):
@@ -21,6 +25,7 @@ class Counter(CustomDictionary):
         else:
             print("Only integer and float values allowed.\nDefault value 'int' set.")
             self.setValueType = int
+
 
 
     def append(self, d):
@@ -71,3 +76,25 @@ class Counter(CustomDictionary):
             maxIndex = values.index(max(values))
             return items[maxIndex][0]
 
+    def __add__(self, y):
+        newCounter = Counter()
+        for key in self:
+            if key in y:
+                newCounter[key] = self[key] + y[key]
+            else:
+                newCounter[key] = self[key]
+        for key in y:
+            if key in self:
+                continue
+            newCounter[key] = y[key]
+        return newCounter
+
+    def __sub__(self, y):
+        newCounter = Counter()
+        for key in self:
+            if key in y:
+                newCounter[key] = self[key] - y[key]
+            else:
+                newCounter[key] = self[key]
+
+        return newCounter
