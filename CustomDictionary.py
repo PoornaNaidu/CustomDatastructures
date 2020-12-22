@@ -11,13 +11,9 @@ class CustomDictionary(dict):
         return dict.__getitem__(self, key)
 
 
-    # def __setitem__(self, __key, __value):
-    #     self.setdefault(__key,__value)
-
-
 class Counter(CustomDictionary):
 
-    def __init__(self, type=int):
+    def __init__(self,d = None, type=int):
         if type is int:
             self.setValueType = int
         elif type is float:
@@ -26,6 +22,9 @@ class Counter(CustomDictionary):
             print("Only integer and float values allowed.\nDefault value 'int' set.")
             self.setValueType = int
 
+        if d is not None:
+            for key in d.keys():
+                self[key] = d[key]
 
 
     def append(self, d):
